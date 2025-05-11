@@ -65,7 +65,7 @@ export const getStaticProps = async () => {
   const currentWeather = await responseCurrentWeather.json();
 
   const responseWeatherFiveDays = await fetch(
-    `http://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${APIKey}`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${location.lat}&lon=${location.lon}&appid=${APIKey}`
   );
   const fiveDaysWeather = await responseWeatherFiveDays.json();
 
