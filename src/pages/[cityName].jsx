@@ -110,7 +110,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false, // can also be 'blocking' if you want runtime generation
+    fallback: "blocking", // can also be 'blocking' if you want runtime generation
   };
 }
 
@@ -118,10 +118,12 @@ export async function getStaticProps({ params }) {
   const cityName = params.cityName;
 
   // Call geo + weather API like in your other code
+
   const geoRes = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
   );
   const geoData = await geoRes.json();
+
   const lat = geoData.results[0].latitude;
   const lon = geoData.results[0].longitude;
 

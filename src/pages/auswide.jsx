@@ -22,7 +22,6 @@ import {
 
 function allCities(props) {
   const { dataGeoCoding, dailyWeatherData } = props;
-  console.log(dataGeoCoding);
 
   return (
     <div className="flex justify-center ">
