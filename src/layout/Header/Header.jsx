@@ -19,7 +19,6 @@ function Header() {
           <Link href="/about">About</Link>
           <Link href="auswide">Australia</Link>
 
-          <Link href="/weather">Weather</Link>
           <Link href="/contact">Contact</Link>
           <div>Toggle</div>
         </div>
