@@ -13,7 +13,7 @@ function NotFound() {
           <Link
             className="btn btn-xs sm:btn-sm md:btn-md
           lg:btn-lg xl:btn-xl"
-            to="/"
+            href="/"
           >
             Back to Home Page
           </Link>
