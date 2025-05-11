@@ -22,6 +22,7 @@ import {
 
 function allCities(props) {
   const { dataGeoCoding, dailyWeatherData } = props;
+  console.log(dataGeoCoding);
 
   return (
     <div className="flex justify-center ">
@@ -98,7 +99,7 @@ export const getStaticProps = async () => {
   const responseDailyWeather = await Promise.all(
     dataGeoCoding.map((city) =>
       fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0]?.latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+        `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0].latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
       )
     )
   );
