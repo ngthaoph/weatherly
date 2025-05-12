@@ -41,11 +41,12 @@ function allCities(props) {
               const weather = dailyWeatherData[index];
               const code = weather.daily?.weather_code[index];
               const icon = getWeatherIcon(code, weatherCodeData);
+
               return (
                 <TableRow key={geoCity.results[0].id || index}>
                   <TableCell className="flex flex-row items-center">
                     <Image src={icon} width={50} height={50} alt="code" />
-                    <Link href={`${cityName.toLowerCase()}`}>
+                    <Link href={`/${cityName.toLowerCase()}`}>
                       {capitalise(cityName)}
                     </Link>
                   </TableCell>
