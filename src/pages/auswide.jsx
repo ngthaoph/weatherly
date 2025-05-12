@@ -141,35 +141,51 @@ function allCities(props) {
   );
 }
 export const getStaticProps = async () => {
-  //GETTING LAT AND LON BASED ON CITY NAME
-  const responseGeoCoding = await Promise.all(
-    cities.map((city) =>
-      fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+  try {
+    // Step 1: Fetch geocoding data
+    const responseGeoCoding = await Promise.all(
+      cities.map((city) =>
+        fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+        )
       )
-    )
-  );
-  const dataGeoCoding = await Promise.all(
-    responseGeoCoding.map((city) => city.json())
-  );
+    );
 
-  //GETTING DAILY WEATHER FORCAST
+    const dataGeoCoding = await Promise.all(
+      responseGeoCoding.map((res) => res.json())
+    );
 
-  const responseDailyWeather = await Promise.all(
-    dataGeoCoding.map((city) =>
-      fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0].latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+    // Step 2: Filter out invalid geocoding responses
+    const validGeoData = dataGeoCoding.filter(
+      (geo) => geo?.results && geo.results.length > 0
+    );
+
+    // Step 3: Fetch daily weather only for valid entries
+    const responseDailyWeather = await Promise.all(
+      validGeoData.map((geo) =>
+        fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+        )
       )
-    )
-  );
+    );
 
-  const dailyWeatherData = await Promise.all(
-    responseDailyWeather.map((city) => city.json())
-  );
-  return {
-    props: { dataGeoCoding, dailyWeatherData },
-    revalidate: 20,
-  };
+    const dailyWeatherData = await Promise.all(
+      responseDailyWeather.map((res) => res.json())
+    );
+
+    return {
+      props: {
+        dataGeoCoding: validGeoData,
+        dailyWeatherData,
+      },
+      revalidate: 20,
+    };
+  } catch (error) {
+    console.error("Error during getStaticProps:", error);
+    return {
+      notFound: true, // Optional: Show 404 page on build error
+    };
+  }
 };
 
 export default allCities;
