@@ -128,6 +128,18 @@ import {
 //   };
 // };
 
+function allCities(props) {
+  const { dataGeoCoding } = props;
+
+  return (
+    <div>
+      {dataGeoCoding.map((entry, index) => {
+        const name = entry.results[0]?.name || "Unknown";
+        return <li key={index}>{name}</li>;
+      })}
+    </div>
+  );
+}
 export const getStaticProps = async () => {
   //GETTING LAT AND LON BASED ON CITY NAME
   const responseGeoCoding = await Promise.all(
@@ -147,7 +159,4 @@ export const getStaticProps = async () => {
   };
 };
 
-function allCities() {
-  return <div>Hello</div>;
-}
 export default allCities;
