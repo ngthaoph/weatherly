@@ -21,6 +21,7 @@ export default function CityPage({ cityName, weatherData }) {
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
 
   // const tomorrowStats = extractWeatherStats(weatherData)
+
   return (
     <div className="flex justify-center">
       <div className="flex bg-white rounded-[5px] shadow-[0px_2px_7px_0px_rgba(0,0,0,0.1)] p-[15px] min-h-[527px] w-3/5">
@@ -110,7 +111,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: blocking, // can also be 'blocking' if you want runtime generation
+    fallback: false, // can also be 'blocking' if you want runtime generation
   };
 }
 
