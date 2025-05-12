@@ -93,7 +93,6 @@ function allCities(props) {
 //  </TableBody>;
 
 export const getStaticProps = async () => {
-  //GETTING LAT AND LON BASED ON CITY NAME
   const responseGeoCoding = await Promise.all(
     cities.map((city) =>
       fetch(
@@ -101,26 +100,33 @@ export const getStaticProps = async () => {
       )
     )
   );
-  const dataGeoCoding = await Promise.all(
-    responseGeoCoding.map((city) => city.json())
+
+  const rawGeoData = await Promise.all(
+    responseGeoCoding.map((res) => res.json())
   );
 
-  //GETTING DAILY WEATHER FORCAST
+  // ✅ Filter out cities that returned no geocode result
+  const validGeoData = rawGeoData.filter(
+    (geo) => geo?.results && geo.results.length > 0
+  );
 
   const responseDailyWeather = await Promise.all(
-    dataGeoCoding.map((city) =>
+    validGeoData.map((geo) =>
       fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0].latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+        `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
       )
     )
   );
 
   const dailyWeatherData = await Promise.all(
-    responseDailyWeather.map((city) => city.json())
+    responseDailyWeather.map((res) => res.json())
   );
 
   return {
-    props: { dataGeoCoding, dailyWeatherData },
+    props: {
+      dataGeoCoding: validGeoData,
+      dailyWeatherData,
+    },
     revalidate: 20,
   };
 };
