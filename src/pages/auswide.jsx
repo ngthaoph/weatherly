@@ -129,7 +129,7 @@ import {
 // };
 
 function allCities(props) {
-  const { dataGeoCoding } = props;
+  const { dataGeoCoding, dailyWeatherData } = props;
 
   return (
     <div>
@@ -153,8 +153,21 @@ export const getStaticProps = async () => {
     responseGeoCoding.map((city) => city.json())
   );
 
+  //GETTING DAILY WEATHER FORCAST
+
+  const responseDailyWeather = await Promise.all(
+    dataGeoCoding.map((city) =>
+      fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0].latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+      )
+    )
+  );
+
+  const dailyWeatherData = await Promise.all(
+    responseDailyWeather.map((city) => city.json())
+  );
   return {
-    props: { dataGeoCoding },
+    props: { dataGeoCoding, dailyWeatherData },
     revalidate: 20,
   };
 };
