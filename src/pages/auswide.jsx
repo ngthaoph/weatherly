@@ -22,6 +22,7 @@ import {
 
 function allCities(props) {
   const { dataGeoCoding, dailyWeatherData } = props;
+  console.log(dataGeoCoding);
 
   return (
     <div className="flex justify-center ">
@@ -37,42 +38,12 @@ function allCities(props) {
           </TableHeader>
           <TableBody>
             {dataGeoCoding.map((geoCity, index) => {
-              const cityName = geoCity.results[0].name;
-              const weather = dailyWeatherData[index];
-              const code = weather.daily?.weather_code[index];
-              const icon = getWeatherIcon(code, weatherCodeData);
+              // const cityName = geoCity.results[0].name;
+              // const weather = dailyWeatherData[index];
+              // const code = weather.daily?.weather_code[index];
+              // const icon = getWeatherIcon(code, weatherCodeData);
 
-              return (
-                <TableRow key={geoCity.results[0].id || index}>
-                  <TableCell className="flex flex-row items-center">
-                    <Image src={icon} width={50} height={50} alt="code" />
-                    <Link href={`/${cityName.toLowerCase()}`}>
-                      {capitalise(cityName)}
-                    </Link>
-                  </TableCell>
-                  <TableCell>{weather.current.temperature_2m}</TableCell>
-                  <TableCell
-                    style={{
-                      backgroundColor: tempColor(
-                        weather.daily.temperature_2m_min[0],
-                        tempColorsChart
-                      ),
-                    }}
-                  >
-                    {weather.daily.temperature_2m_min[0]}
-                  </TableCell>
-                  <TableCell
-                    style={{
-                      backgroundColor: tempColor(
-                        weather.daily.temperature_2m_max[0],
-                        tempColorsChart
-                      ),
-                    }}
-                  >
-                    {weather.daily.temperature_2m_max[0]}
-                  </TableCell>
-                </TableRow>
-              );
+              return <div>Hello</div>;
             })}
           </TableBody>
         </Table>
@@ -80,6 +51,46 @@ function allCities(props) {
     </div>
   );
 }
+//  <TableBody>
+//    {dataGeoCoding.map((geoCity, index) => {
+//      const cityName = geoCity.results[0].name;
+//      const weather = dailyWeatherData[index];
+//      const code = weather.daily?.weather_code[index];
+//      const icon = getWeatherIcon(code, weatherCodeData);
+
+//      return (
+//        <TableRow key={geoCity.results[0].id || index}>
+//          <TableCell className="flex flex-row items-center">
+//            <Image src={icon} width={50} height={50} alt="code" />
+//            <Link href={`/${cityName.toLowerCase()}`}>
+//              {capitalise(cityName)}
+//            </Link>
+//          </TableCell>
+//          <TableCell>{weather.current.temperature_2m}</TableCell>
+//          <TableCell
+//            style={{
+//              backgroundColor: tempColor(
+//                weather.daily.temperature_2m_min[0],
+//                tempColorsChart
+//              ),
+//            }}
+//          >
+//            {weather.daily.temperature_2m_min[0]}
+//          </TableCell>
+//          <TableCell
+//            style={{
+//              backgroundColor: tempColor(
+//                weather.daily.temperature_2m_max[0],
+//                tempColorsChart
+//              ),
+//            }}
+//          >
+//            {weather.daily.temperature_2m_max[0]}
+//          </TableCell>
+//        </TableRow>
+//      );
+//    })}
+//  </TableBody>;
 
 export const getStaticProps = async () => {
   //GETTING LAT AND LON BASED ON CITY NAME
