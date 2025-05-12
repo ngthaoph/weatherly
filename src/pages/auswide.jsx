@@ -20,115 +20,116 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-function allCities(props) {
-  const { dataGeoCoding, dailyWeatherData } = props;
-  console.log(dataGeoCoding);
-
-  return (
-    <div className="flex justify-center ">
-      <div className="flex w-1/3 bg-cyan-800 p-3 rounded-[9px]">
-        <Table className="bg-white rounded-[9px]">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-1/2">City</TableHead>
-              <TableHead className="w-1/8">NOW</TableHead>
-              <TableHead className="w-1/8">MIN</TableHead>
-              <TableHead className="w-1/8">MAX</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {dataGeoCoding.map((geoCity, index) => {
-              // const cityName = geoCity.results[0].name;
-              // const weather = dailyWeatherData[index];
-              // const code = weather.daily?.weather_code[index];
-              // const icon = getWeatherIcon(code, weatherCodeData);
-
-              return <div>Hello</div>;
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
-  );
+function allCities() {
+  return <div>Hello</div>;
 }
-//  <TableBody>
-//    {dataGeoCoding.map((geoCity, index) => {
-//      const cityName = geoCity.results[0].name;
-//      const weather = dailyWeatherData[index];
-//      const code = weather.daily?.weather_code[index];
-//      const icon = getWeatherIcon(code, weatherCodeData);
 
-//      return (
-//        <TableRow key={geoCity.results[0].id || index}>
-//          <TableCell className="flex flex-row items-center">
-//            <Image src={icon} width={50} height={50} alt="code" />
-//            <Link href={`/${cityName.toLowerCase()}`}>
-//              {capitalise(cityName)}
-//            </Link>
-//          </TableCell>
-//          <TableCell>{weather.current.temperature_2m}</TableCell>
-//          <TableCell
-//            style={{
-//              backgroundColor: tempColor(
-//                weather.daily.temperature_2m_min[0],
-//                tempColorsChart
-//              ),
-//            }}
-//          >
-//            {weather.daily.temperature_2m_min[0]}
-//          </TableCell>
-//          <TableCell
-//            style={{
-//              backgroundColor: tempColor(
-//                weather.daily.temperature_2m_max[0],
-//                tempColorsChart
-//              ),
-//            }}
-//          >
-//            {weather.daily.temperature_2m_max[0]}
-//          </TableCell>
-//        </TableRow>
-//      );
-//    })}
-//  </TableBody>;
+// function allCities(props) {
+//   const { dataGeoCoding, dailyWeatherData } = props;
+//   console.log(dataGeoCoding);
 
-export const getStaticProps = async () => {
-  const responseGeoCoding = await Promise.all(
-    cities.map((city) =>
-      fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
-      )
-    )
-  );
+//   return (
+//     <div className="flex justify-center ">
+//       <div className="flex w-1/3 bg-cyan-800 p-3 rounded-[9px]">
+//         <Table className="bg-white rounded-[9px]">
+//           <TableHeader>
+//             <TableRow>
+//               <TableHead className="w-1/2">City</TableHead>
+//               <TableHead className="w-1/8">NOW</TableHead>
+//               <TableHead className="w-1/8">MIN</TableHead>
+//               <TableHead className="w-1/8">MAX</TableHead>
+//             </TableRow>
+//           </TableHeader>
+//           <TableBody>
+//             {dataGeoCoding.map((geoCity, index) => {
+//               const cityName = geoCity.results[0].name;
+//               const weather = dailyWeatherData[index];
+//               const code = weather.daily?.weather_code[index];
+//               const icon = getWeatherIcon(code, weatherCodeData);
 
-  const rawGeoData = await Promise.all(
-    responseGeoCoding.map((res) => res.json())
-  );
+//               return <div>Hello</div>;
+//             })}
+//           </TableBody>
+//           //{" "}
+//           <TableBody>
+//             //{" "}
+//             {dataGeoCoding.map((geoCity, index) => {
+//               const cityName = geoCity.results[0].name;
+//               const weather = dailyWeatherData[index];
+//               const code = weather.daily?.weather_code[index];
+//               const icon = getWeatherIcon(code, weatherCodeData);
 
-  // ✅ Filter out cities that returned no geocode result
-  const validGeoData = rawGeoData.filter(
-    (geo) => geo?.results && geo.results.length > 0
-  );
+//               return (
+//                 <TableRow key={geoCity.results[0].id || index}>
+//                   <TableCell className="flex flex-row items-center">
+//                     <Image src={icon} width={50} height={50} alt="code" />
+//                     <Link href={`/${cityName.toLowerCase()}`}>
+//                       {capitalise(cityName)}
+//                     </Link>
+//                   </TableCell>
+//                   <TableCell>{weather.current.temperature_2m}</TableCell>
+//                   <TableCell
+//                     style={{
+//                       backgroundColor: tempColor(
+//                         weather.daily.temperature_2m_min[0],
+//                         tempColorsChart
+//                       ),
+//                     }}
+//                   >
+//                     {weather.daily.temperature_2m_min[0]}
+//                   </TableCell>
+//                   <TableCell
+//                     style={{
+//                       backgroundColor: tempColor(
+//                         weather.daily.temperature_2m_max[0],
+//                         tempColorsChart
+//                       ),
+//                     }}
+//                   >
+//                     {weather.daily.temperature_2m_max[0]}
+//                   </TableCell>
+//                 </TableRow>
+//               );
+//             })}
+//           </TableBody>
+//           ;
+//         </Table>
+//       </div>
+//     </div>
+//   );
+// }
 
-  const responseDailyWeather = await Promise.all(
-    validGeoData.map((geo) =>
-      fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
-      )
-    )
-  );
+// export const getStaticProps = async () => {
+//   //GETTING LAT AND LON BASED ON CITY NAME
+//   const responseGeoCoding = await Promise.all(
+//     cities.map((city) =>
+//       fetch(
+//         `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+//       )
+//     )
+//   );
+//   const dataGeoCoding = await Promise.all(
+//     responseGeoCoding.map((city) => city.json())
+//   );
 
-  const dailyWeatherData = await Promise.all(
-    responseDailyWeather.map((res) => res.json())
-  );
+//   //GETTING DAILY WEATHER FORCAST
 
-  return {
-    props: {
-      dataGeoCoding: validGeoData,
-      dailyWeatherData,
-    },
-    revalidate: 20,
-  };
-};
+//   const responseDailyWeather = await Promise.all(
+//     dataGeoCoding.map((city) =>
+//       fetch(
+//         `https://api.open-meteo.com/v1/forecast?latitude=${city.results[0].latitude}&longitude=${city.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+//       )
+//     )
+//   );
+
+//   const dailyWeatherData = await Promise.all(
+//     responseDailyWeather.map((city) => city.json())
+//   );
+
+//   return {
+//     props: { dataGeoCoding, dailyWeatherData },
+//     revalidate: 20,
+//   };
+// };
 
 export default allCities;
