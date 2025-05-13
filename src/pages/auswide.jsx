@@ -40,6 +40,7 @@ function allCities(props) {
           <TableBody>
             {dataGeoCoding.map((geoCity, index) => {
               const cityName = geoCity.results[0].name;
+              console.log(typeof cityName);
               const weather = dailyWeatherData[index];
               const code = weather.daily?.weather_code[index];
               const icon = getWeatherIcon(code, weatherCodeData);

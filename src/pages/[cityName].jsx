@@ -120,7 +120,7 @@ export default function CityPage({ cityName, weatherData }) {
 
 export async function getStaticPaths() {
   const paths = cities.map((city) => ({
-    params: { cityName: city.toLowerCase() },
+    params: { cityName: city.toLowerCase().toString() },
   }));
 
   return {
