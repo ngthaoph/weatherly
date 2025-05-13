@@ -95,6 +95,11 @@ export const getStaticProps = async () => {
   const dataGeoCoding = await Promise.all(
     responseGeoCoding.map((res) => res.json())
   );
+  if (!dataGeoCoding) {
+    return {
+      notFound: true,
+    };
+  }
 
   // Fetch daily weather only for valid entries
   const responseDailyWeather = await Promise.all(
@@ -108,6 +113,11 @@ export const getStaticProps = async () => {
   const dailyWeatherData = await Promise.all(
     responseDailyWeather.map((res) => res.json())
   );
+  if (!dailyWeatherData) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

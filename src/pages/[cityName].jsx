@@ -19,7 +19,7 @@ import CurrentForcast from "@/common/currentForcast";
 
 import { useRouter } from "next/router";
 
-export default function CityPage({ cityName, weatherData, paths }) {
+export default function CityPage({ cityName, weatherData }) {
   const stats = extractWeatherStats(weatherData, "current");
 
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
