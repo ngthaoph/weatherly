@@ -17,10 +17,16 @@ import Image from "next/image";
 
 import CurrentForcast from "@/common/currentForcast";
 
+import { useRouter } from "next/router";
+
 export default function CityPage({ cityName, weatherData, paths }) {
   const stats = extractWeatherStats(weatherData, "current");
 
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex justify-center">
@@ -127,7 +133,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: false, // or 'blocking' if you prefer
+      fallback: "blocking", // or 'blocking' if you prefer
     };
   } catch (error) {
     console.error("Error in getStaticPaths:", error);
@@ -146,7 +152,11 @@ export async function getStaticProps({ params }) {
   const geoRes = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
   );
-
+  if (!geoRes) {
+    return {
+      notFound: true,
+    };
+  }
   const geoData = await geoRes.json();
 
   const lat = geoData.results[0].latitude;
@@ -156,6 +166,11 @@ export async function getStaticProps({ params }) {
   const weatherRes = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,rain_sum,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,rain,showers,apparent_temperature,weather_code&forecast_days=3`
   );
+  if (!weatherRes) {
+    return {
+      notFound: true,
+    };
+  }
 
   const weatherData = await weatherRes.json();
 
