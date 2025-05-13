@@ -152,11 +152,10 @@ export async function getStaticProps({ params }) {
   const geoRes = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
   );
-  if (!geoRes) {
-    return {
-      notFound: true,
-    };
+  if (!geoRes.ok) {
+    throw new Error("Geo API failed");
   }
+
   const geoData = await geoRes.json();
 
   const lat = geoData.results[0].latitude;
@@ -166,12 +165,9 @@ export async function getStaticProps({ params }) {
   const weatherRes = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,rain_sum,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,rain,showers,apparent_temperature,weather_code&forecast_days=3`
   );
-  if (!weatherRes) {
-    return {
-      notFound: true,
-    };
+  if (!weatherRes.ok) {
+    throw new Error("Geo API failed");
   }
-
   const weatherData = await weatherRes.json();
 
   return {
