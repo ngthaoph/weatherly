@@ -136,8 +136,8 @@ function allCities(props) {
     <div>
       <div>
         {dataGeoCoding.map((entry, index) => {
-          const name = entry.results[0]?.name || "Unknown";
-          return <li key={index}>{name}</li>;
+          // const name = entry.results[0]?.name || "Unknown";
+          return <li key={index}>{entry.results[0].name}</li>;
         })}
       </div>
       <div>
