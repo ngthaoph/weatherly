@@ -129,54 +129,58 @@ export async function getStaticPaths() {
     const paths = cities.map((city) => ({
       params: { cityName: city.toLowerCase() },
     }));
-    console.log("paths", paths);
+    console.log("✅ getStaticPaths: paths generated:", paths);
 
     return {
       paths,
-      fallback: "blocking", // or 'blocking' if you prefer
+      fallback: "blocking", // Allows runtime generation if missed during build
     };
   } catch (error) {
-    console.error("Error in getStaticPaths:", error);
-
-    // Fails the build, which is usually desired here
+    console.error("❌ Error in getStaticPaths:", error);
     throw new Error("Failed to generate static paths.");
   }
 }
 
 export async function getStaticProps({ params }) {
-  console.log("getStaticProps - params:", params);
   const cityName = params.cityName;
+  console.log("🔄 getStaticProps called for:", cityName);
 
-  // Call geo + weather API like in your other code
+  try {
+    const geoRes = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
+    );
 
-  const geoRes = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1&language=en&format=json`
-  );
-  if (!geoRes.ok) {
-    throw new Error("Geo API failed");
+    if (!geoRes.ok) throw new Error(`Geo API failed for ${cityName}`);
+
+    const geoData = await geoRes.json();
+
+    if (!geoData.results || geoData.results.length === 0) {
+      throw new Error(`No geo results for ${cityName}`);
+    }
+
+    const lat = geoData.results[0].latitude;
+    const lon = geoData.results[0].longitude;
+
+    const weatherRes = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,rain_sum,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,rain,showers,apparent_temperature,weather_code&forecast_days=3`
+    );
+
+    if (!weatherRes.ok) throw new Error(`Weather API failed for ${cityName}`);
+
+    const weatherData = await weatherRes.json();
+
+    return {
+      props: {
+        cityName,
+        weatherData,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error(`❌ getStaticProps error for ${cityName}:`, error.message);
+
+    return {
+      notFound: true, // Fallback page like 404 or a custom error page
+    };
   }
-
-  const geoData = await geoRes.json();
-
-  const lat = geoData.results[0].latitude;
-
-  const lon = geoData.results[0].longitude;
-
-  const weatherRes = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,rain_sum,precipitation_probability_max&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,rain,showers,apparent_temperature,weather_code&forecast_days=3`
-  );
-  if (!weatherRes.ok) {
-    throw new Error("Geo API failed");
-  }
-  const weatherData = await weatherRes.json();
-
-  return {
-    props: {
-      cityName,
-
-      weatherData,
-    },
-
-    revalidate: 60, // ISR (optional)
-  };
 }
