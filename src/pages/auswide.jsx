@@ -133,17 +133,59 @@ function allCities(props) {
   console.log(dailyWeatherData);
 
   return (
-    <div>
-      <div>
-        {dataGeoCoding.map((entry, index) => {
-          // const name = entry.results[0]?.name || "Unknown";
-          return <li key={index}>{entry.results[0].name}</li>;
-        })}
-      </div>
-      <div>
-        {dailyWeatherData.map((city) => (
-          <li>{city.daily.temperature_2m_max}</li>
-        ))}
+    <div className="flex justify-center ">
+      <div className="flex w-1/3 bg-cyan-800 p-3 rounded-[9px]">
+        <Table className="bg-white rounded-[9px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-1/2">City</TableHead>
+              <TableHead className="w-1/8">NOW</TableHead>
+              <TableHead className="w-1/8">MIN</TableHead>
+              <TableHead className="w-1/8">MAX</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {dataGeoCoding.map((geoCity, index) => {
+              const cityName = geoCity.results[0].name;
+              const weather = dailyWeatherData[index];
+              const code = weather.daily?.weather_code[index];
+              const icon = getWeatherIcon(code, weatherCodeData);
+
+              return (
+                <TableRow key={geoCity.results[0].id || index}>
+                  <TableCell className="flex flex-row items-center">
+                    <Image src={icon} width={50} height={50} alt="code" />
+                    <Link href={`/${cityName.toLowerCase()}`}>
+                      {capitalise(cityName)}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{weather.current.temperature_2m}</TableCell>
+                  <TableCell
+                    style={{
+                      backgroundColor: tempColor(
+                        weather.daily.temperature_2m_min[0],
+                        tempColorsChart
+                      ),
+                    }}
+                  >
+                    {weather.daily.temperature_2m_min[0]}
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      backgroundColor: tempColor(
+                        weather.daily.temperature_2m_max[0],
+                        tempColorsChart
+                      ),
+                    }}
+                  >
+                    {weather.daily.temperature_2m_max[0]}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
