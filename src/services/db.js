@@ -2,11 +2,11 @@ export const cities = [
   "Canberra",
   "Sydney",
   "Melbourne",
-  "Brisbane",
-  "Perth",
-  "Adelaide",
-  "Hobart",
-  "Darwin",
+  // "Brisbane",
+  // "Perth",
+  // "Adelaide",
+  // "Hobart",
+  // "Darwin",
 ];
 
 export const tempColorsChart = [
