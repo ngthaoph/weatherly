@@ -17,7 +17,7 @@ import Image from "next/image";
 
 import CurrentForcast from "@/common/currentForcast";
 
-export default function CityPage({ cityName, weatherData }) {
+export default function CityPage({ cityName, weatherData, paths }) {
   const stats = extractWeatherStats(weatherData, "current");
 
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
@@ -119,18 +119,26 @@ export default function CityPage({ cityName, weatherData }) {
 }
 
 export async function getStaticPaths() {
-  const paths = cities.map((city) => ({
-    params: { cityName: city.toLowerCase().toString() },
-  }));
+  try {
+    const paths = cities.map((city) => ({
+      params: { cityName: city.toLowerCase() },
+    }));
+    console.log("paths", paths);
 
-  return {
-    paths,
+    return {
+      paths,
+      fallback: false, // or 'blocking' if you prefer
+    };
+  } catch (error) {
+    console.error("Error in getStaticPaths:", error);
 
-    fallback: false, // can also be 'blocking' if you want runtime generation
-  };
+    // Fails the build, which is usually desired here
+    throw new Error("Failed to generate static paths.");
+  }
 }
 
 export async function getStaticProps({ params }) {
+  console.log("getStaticProps - params:", params);
   const cityName = params.cityName;
 
   // Call geo + weather API like in your other code

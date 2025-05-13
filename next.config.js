@@ -25,17 +25,17 @@ module.exports = (phase) => {
     ],
   };
 
-  const env = {
-    SERVER_NAME: (() => {
-      if (isDev) return "http://localhost:3000/";
-      if (isProd) return "https://weatherly-e6lu.onrender.com/";
-    })(),
-  };
+  // const env = {
+  //   SERVER_NAME: (() => {
+  //     if (isDev) return "http://localhost:3000/";
+  //     if (isProd) return "https://weatherly-e6lu.onrender.com/";
+  //   })(),
+  // };
 
   // Next.config returns an object
   return {
     reactStrictMode,
     images,
-    env,
+    // env,
   };
 };
