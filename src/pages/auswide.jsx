@@ -130,13 +130,21 @@ import {
 
 function allCities(props) {
   const { dataGeoCoding, dailyWeatherData } = props;
+  console.log(dailyWeatherData);
 
   return (
     <div>
-      {dataGeoCoding.map((entry, index) => {
-        const name = entry.results[0]?.name || "Unknown";
-        return <li key={index}>{name}</li>;
-      })}
+      <div>
+        {dataGeoCoding.map((entry, index) => {
+          const name = entry.results[0]?.name || "Unknown";
+          return <li key={index}>{name}</li>;
+        })}
+      </div>
+      <div>
+        {dailyWeatherData.map((city) => (
+          <li>{city.daily.temperature_2m_max}</li>
+        ))}
+      </div>
     </div>
   );
 }
