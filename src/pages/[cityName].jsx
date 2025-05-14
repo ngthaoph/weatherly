@@ -124,22 +124,22 @@ export default function CityPage({ cityName, weatherData }) {
   );
 }
 
-// export async function getStaticPaths() {
-//   try {
-//     const paths = cities.map((city) => ({
-//       params: { cityName: city.toLowerCase() },
-//     }));
-//     console.log("✅ getStaticPaths: paths generated:", paths);
+export async function getStaticPaths() {
+  try {
+    const paths = cities.map((city) => ({
+      params: { cityName: city.toLowerCase() },
+    }));
+    console.log("✅ getStaticPaths: paths generated:", paths);
 
-//     return {
-//       paths,
-//       fallback: "blocking", // Allows runtime generation if missed during build
-//     };
-//   } catch (error) {
-//     console.error("❌ Error in getStaticPaths:", error);
-//     throw new Error("Failed to generate static paths.");
-//   }
-// }
+    return {
+      paths,
+      fallback: "blocking", // Allows runtime generation if missed during build
+    };
+  } catch (error) {
+    console.error("❌ Error in getStaticPaths:", error);
+    throw new Error("Failed to generate static paths.");
+  }
+}
 
 export async function getStaticProps({ params }) {
   const cityName = params.cityName;
