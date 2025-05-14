@@ -83,88 +83,88 @@ function allCities(props) {
     </div>
   );
 }
-// export const getStaticProps = async () => {
-//   const responseGeoCoding = await Promise.all(
-//     cities.map((city) =>
-//       fetch(
-//         `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
-//       )
-//     )
-//   );
-
-//   const dataGeoCoding = await Promise.all(
-//     responseGeoCoding.map((res) => res.json())
-//   );
-//   if (!dataGeoCoding) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   // Fetch daily weather only for valid entries
-//   const responseDailyWeather = await Promise.all(
-//     dataGeoCoding.map((geo) =>
-//       fetch(
-//         `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
-//       )
-//     )
-//   );
-
-//   const dailyWeatherData = await Promise.all(
-//     responseDailyWeather.map((res) => res.json())
-//   );
-//   if (!dailyWeatherData) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: {
-//       dataGeoCoding,
-//       dailyWeatherData,
-//     },
-//     revalidate: 20,
-//   };
-// };
-export const getServerSideProps = async () => {
-  try {
-    const responseGeoCoding = await Promise.all(
-      cities.map((city) =>
-        fetch(
-          `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
-        )
+export const getStaticProps = async () => {
+  const responseGeoCoding = await Promise.all(
+    cities.map((city) =>
+      fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
       )
-    );
+    )
+  );
 
-    const dataGeoCoding = await Promise.all(
-      responseGeoCoding.map((res) => res.json())
-    );
-
-    const responseDailyWeather = await Promise.all(
-      dataGeoCoding.map((geo) =>
-        fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
-        )
-      )
-    );
-
-    const dailyWeatherData = await Promise.all(
-      responseDailyWeather.map((res) => res.json())
-    );
-
-    return {
-      props: {
-        dataGeoCoding,
-        dailyWeatherData,
-      },
-    };
-  } catch (error) {
-    console.error("Error in getServerSideProps (/auswide):", error);
+  const dataGeoCoding = await Promise.all(
+    responseGeoCoding.map((res) => res.json())
+  );
+  if (!dataGeoCoding) {
     return {
       notFound: true,
     };
   }
+
+  // Fetch daily weather only for valid entries
+  const responseDailyWeather = await Promise.all(
+    dataGeoCoding.map((geo) =>
+      fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+      )
+    )
+  );
+
+  const dailyWeatherData = await Promise.all(
+    responseDailyWeather.map((res) => res.json())
+  );
+  if (!dailyWeatherData) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      dataGeoCoding,
+      dailyWeatherData,
+    },
+    revalidate: 20,
+  };
 };
+// export const getServerSideProps = async () => {
+//   try {
+//     const responseGeoCoding = await Promise.all(
+//       cities.map((city) =>
+//         fetch(
+//           `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
+//         )
+//       )
+//     );
+
+//     const dataGeoCoding = await Promise.all(
+//       responseGeoCoding.map((res) => res.json())
+//     );
+
+//     const responseDailyWeather = await Promise.all(
+//       dataGeoCoding.map((geo) =>
+//         fetch(
+//           `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
+//         )
+//       )
+//     );
+
+//     const dailyWeatherData = await Promise.all(
+//       responseDailyWeather.map((res) => res.json())
+//     );
+
+//     return {
+//       props: {
+//         dataGeoCoding,
+//         dailyWeatherData,
+//       },
+//     };
+//   } catch (error) {
+//     console.error("Error in getServerSideProps (/auswide):", error);
+//     return {
+//       notFound: true,
+//     };
+//   }
+// };
 
 export default allCities;
