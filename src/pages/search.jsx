@@ -3,7 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import CityPage from "./[cityName]";
 
-function Search() {
+function Search(props) {
+  const { cityName, weatherData } = props;
+  console.log(cityName, weatherData);
   const router = useRouter();
   const [location, setLocation] = useState("");
   const updateLocation = (e) => {
@@ -13,7 +15,7 @@ function Search() {
   const moveToLocation = (e) => {
     router.push(`/${location.toLowerCase()}`);
   };
-  console.log("location:", location);
+
   return (
     <div className="w-full max-w-sm items-center gap-1.5">
       <div>
@@ -22,15 +24,13 @@ function Search() {
           id="weather-search"
           className="bg-white"
           type="text"
-          placeholder="Type in A Location"
+          placeholder="Your Current Location"
           value={location}
           onChange={updateLocation}
           onKeyDown={moveToLocation}
         />
       </div>
-      <div>{location}</div>
     </div>
   );
 }
-
 export default Search;

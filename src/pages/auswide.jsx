@@ -22,7 +22,6 @@ import {
 
 function allCities(props) {
   const { dataGeoCoding, dailyWeatherData } = props;
-  console.log(dailyWeatherData);
 
   return (
     <div className="flex justify-center ">
@@ -44,17 +43,14 @@ function allCities(props) {
               const weather = dailyWeatherData[index];
               console.log("weather", weather); //8 entries for 8 cities so correct
               const code = weather.daily.weather_code[0]; //correct
-              //get correct weatherIcon
 
-              const icon1 = weatherCodeData.find(
-                (element) => element.codes === code
-              );
+              const icon = getWeatherIcon(code);
 
               return (
                 <TableRow key={geoCity.results[0].id || index}>
                   <TableCell className="flex flex-row items-center">
                     <Image
-                      src={icon1?.icon || "/icons/default.png"}
+                      src={icon?.icon || "/icons/default.png"}
                       width={50}
                       height={50}
                       alt="code"

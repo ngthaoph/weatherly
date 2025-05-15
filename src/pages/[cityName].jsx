@@ -23,6 +23,11 @@ export default function CityPage({ cityName, weatherData }) {
   const stats = extractWeatherStats(weatherData, "current");
 
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
+  console.log(futureStats);
+
+  const icon = getWeatherIcon(Number(futureStats[4]?.value));
+  console.log(icon);
+
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -43,12 +48,7 @@ export default function CityPage({ cityName, weatherData }) {
 
             <div className="flex flex-row justify-between">
               <div>
-                <Image
-                  src={getWeatherIcon(futureStats[4], weatherCodeData)}
-                  width={50}
-                  height={50}
-                  alt="icon"
-                />
+                <Image src={icon?.icon} width={50} height={50} alt="icon" />
               </div>
 
               <div>
