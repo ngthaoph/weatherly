@@ -6,10 +6,10 @@ import {
   tempColor,
   getWeatherIcon,
   capitalise,
+  getWeatherDescription,
 } from "@/services/helper";
-import { cities, tempColorsChart } from "@/services/db";
+import { cities, tempColorsChart, weatherCodeData } from "@/services/db";
 
-import { weatherCodeData } from "@/services/weathericons";
 import {
   Table,
   TableBody,
@@ -38,17 +38,27 @@ function allCities(props) {
           </TableHeader>
 
           <TableBody>
-            {dataGeoCoding.map((geoCity, index) => {
+            {dataGeoCoding?.map((geoCity, index) => {
               const cityName = geoCity.results[0].name;
-              console.log(typeof cityName);
+
               const weather = dailyWeatherData[index];
-              const code = weather.daily?.weather_code[index];
-              const icon = getWeatherIcon(code, weatherCodeData);
+              console.log("weather", weather); //8 entries for 8 cities so correct
+              const code = weather.daily.weather_code[0]; //correct
+              //get correct weatherIcon
+
+              const icon1 = weatherCodeData.find(
+                (element) => element.codes === code
+              );
 
               return (
                 <TableRow key={geoCity.results[0].id || index}>
                   <TableCell className="flex flex-row items-center">
-                    <Image src={icon} width={50} height={50} alt="code" />
+                    <Image
+                      src={icon1?.icon || "/icons/default.png"}
+                      width={50}
+                      height={50}
+                      alt="code"
+                    />
                     <Link href={`/${cityName.toLowerCase()}`}>
                       {capitalise(cityName)}
                     </Link>

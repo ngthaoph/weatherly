@@ -2,10 +2,12 @@ import Link from "next/link";
 
 function NotFound() {
   return (
-    <div className="hero min-h-screen">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-5xl font-bold">I have bad news for you</h1>
+    <div className="flex justify-center hero min-h-screen">
+      <div className="hero-content">
+        <div className="flex flex-col max-w-md">
+          <h1 className="text-5xl font-bold text-pretty">
+            I have bad news for you
+          </h1>
           <p className="py-6">
             The page you are looking for might be removed or is temporarily
             unavailable

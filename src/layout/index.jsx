@@ -1,5 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import Search from "../pages/search";
 // import { Roboto } from "next/font/google";
 
 // const roboto = Roboto({
@@ -20,6 +21,7 @@ function Layout(props) {
 
       {/* APP BODY */}
       <div className="flex-1 overflow-y-auto m-10 p-5  ">{props.children}</div>
+
       <Footer />
     </div>
   );

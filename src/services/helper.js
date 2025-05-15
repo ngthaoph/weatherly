@@ -33,12 +33,14 @@ export const tempColor = (temp, tempColorsChart) => {
   return tempColorsChart[0].color;
 };
 
-export const getWeatherIcon = (code, weatherCodeData) => {
-  const match = weatherCodeData.find((entry) => entry.codes);
-  return match.icon;
+export const getWeatherIcon = (codeNumber, weatherCodeData) => {
+  const match = weatherCodeData.find((element) => element.codes === codeNumber);
+
+  return match;
 };
 export const getWeatherDescription = (code, weatherCodeData) => {
   const match = weatherCodeData.find((entry) => entry.codes);
+  console.log("weather description:", match);
   return match.description;
 };
 

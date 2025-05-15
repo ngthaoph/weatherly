@@ -60,7 +60,9 @@ export default function CityPage({ cityName, weatherData }) {
               </div>
 
               <div
-                className="font-semibold text-[23px] flex items-center justify-center"
+                className="
+                w-[85px] h-[50px]
+                font-semibold text-[23px] flex items-center justify-center"
                 style={{
                   backgroundColor: tempColor(
                     futureStats[2].value,
@@ -73,7 +75,7 @@ export default function CityPage({ cityName, weatherData }) {
               </div>
 
               <div
-                className="font-semibold text-[23px] flex items-center justify-center"
+                className=" w-[85px] h-[50px] font-semibold text-[23px] flex items-center justify-center"
                 style={{
                   backgroundColor: tempColor(
                     futureStats[1].value,
@@ -88,33 +90,35 @@ export default function CityPage({ cityName, weatherData }) {
 
             {/**DETAILS */}
 
-            <div className="m-2">
-              <div>
-                {capitalise(cityName)} Weather on{" "}
-                {formatToAustralianDate(futureStats[0].value)}
-              </div>
-
-              <div className="flex flex-col ">
-                <div className="font-bold">
-                  {capitaliseAll(futureStats[3].label)}:
+            <div className="flex flex-col">
+              <div className="flex flex-col m-3">
+                <div className="flex flex-col">
+                  {capitalise(cityName)} Weather on{" "}
+                  {formatToAustralianDate(futureStats[0].value)}
                 </div>
 
-                <div> {futureStats[3].value}</div>
-              </div>
+                <div className="flex flex-col ">
+                  <div className="font-bold">
+                    {capitaliseAll(futureStats[3].label)}:
+                  </div>
 
-              <div className="flex flex-col">
-                <div className="font-bold">
-                  {capitaliseAll(futureStats[5].label)}
-                </div>{" "}
-                <div> {futureStats[5].value}%</div>
-              </div>
-
-              <div className="flex flex-col">
-                <div className="font-bold">
-                  {capitaliseAll(futureStats[6].label)}
+                  <div> {futureStats[3].value}</div>
                 </div>
 
-                <div>{futureStats[6].value}mm</div>
+                <div className="flex flex-col">
+                  <div className="font-bold">
+                    {capitaliseAll(futureStats[5].label)}
+                  </div>{" "}
+                  <div> {futureStats[5].value}%</div>
+                </div>
+
+                <div className="flex flex-col">
+                  <div className="font-bold">
+                    {capitaliseAll(futureStats[6].label)}
+                  </div>
+
+                  <div>{futureStats[6].value}mm</div>
+                </div>
               </div>
             </div>
           </div>
