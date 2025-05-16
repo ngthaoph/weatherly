@@ -22,7 +22,21 @@ export const getDailyForecasts = (list) => {
   return Object.values(daily);
 };
 
-export const tempColor = (temp, tempColorsChart) => {
+export const tempColor = (temp) => {
+  const tempColorsChart = [
+    { temp: -10, color: "#ffffff" }, // snowy white
+    { temp: 0, color: "#cce6ff" }, // light icy blue
+    { temp: 5, color: "#99ccff" }, // soft blue
+    { temp: 10, color: "#66b2ff" }, // medium blue
+    { temp: 15, color: "#3399ff" }, // bright blue
+    { temp: 20, color: "#66cc66" }, // mild green
+    { temp: 25, color: "#ffcc00" }, // warm yellow
+    { temp: 30, color: "#ff9933" }, // hot orange
+    { temp: 35, color: "#ff6600" }, // hotter orange
+    { temp: 40, color: "#ff3300" }, // red-orange
+    { temp: 45, color: "#cc0000" }, // deep red
+    { temp: 50, color: "#990000" }, // very hot red
+  ];
   // Iterate from highest to lowest to find the closest match
   for (let i = tempColorsChart.length - 1; i >= 0; i--) {
     if (temp >= tempColorsChart[i].temp) {

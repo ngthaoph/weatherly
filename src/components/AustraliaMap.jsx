@@ -1,7 +1,23 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import Image from "next/image";
+import L from "leaflet";
+// Manually import marker images
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
-export default function AustraliaMap({ lat, lon, zoom }) {
+import { tempColor } from "@/services/helper";
+
+// Fix the default icon
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconUrl,
+  iconRetinaUrl,
+  shadowUrl,
+});
+export default function AustraliaMap({ lat, lon, zoom, weather }) {
   return (
     <div style={{ height: "50vh", width: "100%" }}>
       <MapContainer
@@ -15,6 +31,18 @@ export default function AustraliaMap({ lat, lon, zoom }) {
           attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <Marker position={[lat, lon]}>
+          <Popup>
+            <div className="flex flex-row justify-center">
+              <div style={{ backgroundColor: tempColor(weather.minTemp) }}>
+                {weather.minTemp}°C
+              </div>
+              <div style={{ backgroundColor: tempColor(weather.maxTemp) }}>
+                {weather.maxTemp}°C
+              </div>
+            </div>
+          </Popup>
+        </Marker>
       </MapContainer>
     </div>
   );
