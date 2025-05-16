@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import Search from "../pages/search";
+import Search from "../components/Search";
 // import { Roboto } from "next/font/google";
 
 // const roboto = Roboto({

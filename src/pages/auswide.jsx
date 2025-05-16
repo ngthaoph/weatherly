@@ -41,7 +41,7 @@ function allCities(props) {
               const cityName = geoCity.results[0].name;
 
               const weather = dailyWeatherData[index];
-              console.log("weather", weather); //8 entries for 8 cities so correct
+
               const code = weather.daily?.weather_code[0]; //correct
 
               const icon = getWeatherIcon(code);

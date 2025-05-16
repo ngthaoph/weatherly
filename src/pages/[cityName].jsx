@@ -23,15 +23,8 @@ export default function CityPage({ cityName, weatherData }) {
   const stats = extractWeatherStats(weatherData, "current");
 
   const futureStats = extractFutureWeatherStats(weatherData, "daily", 1);
-  console.log(futureStats);
 
   const icon = getWeatherIcon(Number(futureStats[4]?.value));
-  console.log(icon);
-
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="flex justify-center">
