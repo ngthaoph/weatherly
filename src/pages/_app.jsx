@@ -1,15 +1,25 @@
 import "@/styles/globals.css";
 import Layout from "../layout";
 import { Fragment } from "react";
-import Head from "next/head";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
+// Create a client
+const queryClient = new QueryClient();
 function App({ Component, pageProps }) {
   return (
-    <Fragment>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Fragment>
+    <QueryClientProvider client={queryClient}>
+      <Fragment>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Fragment>
+    </QueryClientProvider>
   );
 }
 

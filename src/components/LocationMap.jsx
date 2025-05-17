@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl,
   shadowUrl,
 });
-export default function AustraliaMap({ lat, lon, zoom, weather }) {
+export default function LocationMap({ lat = 20, lon = 0, zoom, weather = {} }) {
   return (
     <div style={{ height: "50vh", width: "100%" }}>
       <MapContainer
@@ -34,10 +34,18 @@ export default function AustraliaMap({ lat, lon, zoom, weather }) {
         <Marker position={[lat, lon]}>
           <Popup>
             <div className="flex flex-row justify-center">
-              <div style={{ backgroundColor: tempColor(weather.minTemp) }}>
+              <div
+                style={{
+                  backgroundColor: tempColor(weather.minTemp),
+                }}
+              >
                 {weather.minTemp}°C
               </div>
-              <div style={{ backgroundColor: tempColor(weather.maxTemp) }}>
+              <div
+                style={{
+                  backgroundColor: tempColor(weather.maxTemp),
+                }}
+              >
                 {weather.maxTemp}°C
               </div>
             </div>
