@@ -10,14 +10,6 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { createMapIcon } from "@/services/helper";
 import Link from "next/link";
 
-delete L.Icon.Default.prototype._getIconUrl;
-
-// L.Icon.Default.mergeOptions({
-//   iconUrl,
-//   iconRetinaUrl,
-//   shadowUrl,
-// });
-
 export default function AustraliaMap({ citiesWithWeather }) {
   // -25.2744, 133.7751]
   const position = [-25.2744, 133.7751];

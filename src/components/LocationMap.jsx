@@ -1,16 +1,9 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import Image from "next/image";
+
 import L from "leaflet";
-// Manually import marker images
-import iconUrl from "leaflet/dist/images/marker-icon.png";
-import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
-import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
 import { tempColor } from "@/services/helper";
-
-// Fix the default icon
-delete L.Icon.Default.prototype._getIconUrl;
 
 export const icon = L.divIcon({
   className: "custom-temp-icon",
@@ -21,14 +14,6 @@ export const icon = L.divIcon({
       background-color: none;
       color: black;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 12px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      text-align: center;
       background-image: url('/icons/pin.png');
       background-size: cover;
       background-position: center;"
