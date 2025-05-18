@@ -199,7 +199,6 @@ export const getWeatherDescription = (code, weatherCodeData) => {
 
   return match.description;
 };
-
 export const formatToAustralianDate = (isoString) => {
   const date = new Date(isoString);
 
@@ -216,7 +215,6 @@ export const formatToAustralianDate = (isoString) => {
 
   return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
 };
-
 export const extractWeatherStats = (data, period) => {
   return [
     {
@@ -262,7 +260,37 @@ export const capitalise = (word) => {
   if (!word) return "";
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
-
 export const capitaliseAll = (word) => {
   return word.toUpperCase();
+};
+
+export const createMapIcon = (city, temp) => {
+  const bgColor = tempColor(temp);
+
+  return L.divIcon({
+    className: "custom-temp-icon",
+    html: `<div 
+    
+    style="
+      width: 50px;
+      height: 50px;
+      background-color: ${bgColor};
+      color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      text-align: center;
+      
+    ">
+      <div style="line-height: 1.2;">${city}</div>
+      <div style="font-size: 14px;">${temp}°</div>
+    </div>`,
+    iconSize: [50, 50],
+    iconAnchor: [25, 25],
+  });
 };
