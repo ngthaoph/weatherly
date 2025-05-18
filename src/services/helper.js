@@ -264,7 +264,7 @@ export const capitaliseAll = (word) => {
   return word.toUpperCase();
 };
 
-export const createMapIcon = (city, temp) => {
+export const createMapIcon = (city, temp, pin) => {
   const bgColor = tempColor(temp);
 
   return L.divIcon({
@@ -285,7 +285,13 @@ export const createMapIcon = (city, temp) => {
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       text-align: center;
-      
+      ${
+        pin
+          ? `background-image: url('/icons/pin.png');
+        background-size: cover;
+        background-position: center;`
+          : null
+      }
     ">
       <div style="line-height: 1.2;">${city}</div>
       <div style="font-size: 14px;">${temp}°</div>

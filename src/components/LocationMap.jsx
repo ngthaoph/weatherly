@@ -12,10 +12,29 @@ import { tempColor } from "@/services/helper";
 // Fix the default icon
 delete L.Icon.Default.prototype._getIconUrl;
 
-L.Icon.Default.mergeOptions({
-  iconUrl,
-  iconRetinaUrl,
-  shadowUrl,
+export const icon = L.divIcon({
+  className: "custom-temp-icon",
+  html: `<div 
+    style="
+      width: 50px;
+      height: 50px;
+      background-color: none;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      text-align: center;
+      background-image: url('/icons/pin.png');
+      background-size: cover;
+      background-position: center;"
+     </div>`,
+  iconSize: [50, 50],
+  iconAnchor: [25, 25],
 });
 export default function LocationMap({ lat = 20, lon = 0, zoom, weather = {} }) {
   return (
@@ -31,7 +50,7 @@ export default function LocationMap({ lat = 20, lon = 0, zoom, weather = {} }) {
           attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[lat, lon]}>
+        <Marker position={[lat, lon]} icon={icon}>
           <Popup>
             <div className="flex flex-row justify-center">
               <div
