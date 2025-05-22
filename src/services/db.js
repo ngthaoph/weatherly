@@ -175,3 +175,9 @@ export const weatherCodeData = [
     icon: "/icons/hail.png",
   },
 ];
+
+export const backgroundImages = [
+  "/image/weatherly-bg1.jpg",
+  "/image/weatherly-bg2.jpg",
+  "/image/weatherly-bg3.jpg",
+];

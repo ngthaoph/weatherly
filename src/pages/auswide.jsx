@@ -57,10 +57,10 @@ function allCities(props) {
     .filter(Boolean); // Remove null/invalid entries
   console.log(citiesWithWeather);
   return (
-    <div className="flex justify-center p-4">
-      <div className="flex flex-row justify-between items-start gap-x-4 w-full max-w-screen-xl">
-        <div className="flex justify-center w-2/8 bg-cyan-800 p-3 rounded-[9px]">
-          <Table className="bg-white rounded-[9px]">
+    <div className="flex justify-center p-5">
+      <div className="flex flex-row justify-between items-center gap-x-4 w-full max-w-screen-xl">
+        <div className="flex justify-center w-2/8 p-3">
+          <Table className="bg-white">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-1/2">City</TableHead>

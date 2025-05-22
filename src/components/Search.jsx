@@ -4,12 +4,12 @@ function Search({ handleSearch, location, updateLocation }) {
   return (
     <div className="w-full max-w-sm items-center gap-1.5">
       <form onSubmit={handleSearch}>
-        <label>Weather Search</label>
+        <label></label>
         <Input
           id="weather-search"
-          className="bg-white"
+          className="bg-white/95 text-black rounded-[4px]"
           type="text"
-          placeholder="Type in a Location"
+          placeholder={`🔍  Search your location`}
           value={location}
           onChange={updateLocation}
         />

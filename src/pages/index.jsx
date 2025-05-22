@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 import Search from "@/components/Search";
 import {
@@ -11,12 +12,22 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { backgroundImages } from "@/services/db";
 
 const LocationMap = dynamic(() => import("../components/LocationMap"), {
   ssr: false,
 });
 
 function HomePage() {
+  const [currentBg, setCurrentBg] = useState(0);
+  console.log(currentBg);
+
+  const handleSetBg = () => {
+    setCurrentBg((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+  };
+  useEffect(() => {
+    handleSetBg();
+  }, []);
   const [map, setMap] = useState({
     lat: 20,
     lon: 0,
@@ -26,7 +37,6 @@ function HomePage() {
   const [location, setLocation] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(searchQuery);
 
   const updateLocation = (e) => {
     e.preventDefault();
@@ -70,16 +80,21 @@ function HomePage() {
   });
 
   return (
-    <div>
-      <Search
-        handleSearch={handleSearch}
-        location={location}
-        s
-        updateLocation={updateLocation}
-      />
+    <div className="h-screen">
+      <div className="flex w-screen h-4/10 relative">
+        <Image src={backgroundImages[currentBg]} alt="bg" fill />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl">
+          <Search
+            handleSearch={handleSearch}
+            location={location}
+            s
+            updateLocation={updateLocation}
+          />
+        </div>
+      </div>
 
-      <div>
-        <h1 className="text-center mt-4">
+      <div className="flex justify-center">
+        <h1 className="w-1/2 text-center mt-4">
           <LocationMap
             lat={coords?.latitude}
             lon={coords?.longitude}

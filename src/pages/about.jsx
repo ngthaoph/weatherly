@@ -1,3 +1,6 @@
+// pages/about.tsx
+
+import Head from "next/head";
 import {
   Card,
   CardContent,
@@ -9,34 +12,50 @@ import {
 
 export default function AboutPage() {
   return (
-    <Card className="max-w-3xl mx-auto px-4 py-10">
-      <CardTitle className="text-3xl font-bold mb-4">About Us</CardTitle>
-      <p className="mb-4 text-lg">
-        At <span className="font-semibold">BabyNames.io</span>, we're passionate
-        about the stories behind baby names. Every year, each Australian state
-        and territory releases its list of the most popular names given to
-        newborns. We collect and showcase this data in one place, making it easy
-        to explore trends, discover name ideas, and see what names are rising or
-        falling in popularity.
-      </p>
-      <p className="mb-4 text-lg">
-        Names are more than just labels — they’re reflections of culture,
-        fashion, and identity. Looking at naming trends can reveal generational
-        shifts and social influences, helping us understand the spirit of the
-        times.
-      </p>
-      <p className="mb-4 text-lg">
-        As we approach the end of{" "}
-        <span className="font-semibold">Generation Alpha (2010–2024)</span>,
-        this year’s baby names will mark the close of a generation. From 2025,
-        we enter{" "}
-        <span className="font-semibold">Generation Beta (2025–2039)</span>,
-        bringing with it a new wave of names and stories waiting to unfold.
-      </p>
-      <p className="text-lg">
-        Whether you're choosing a name, curious about trends, or just love
-        exploring names — you're in the right place.
-      </p>
-    </Card>
+    <div className="flex justify-center">
+      <div>
+        <div>
+          <title>About | Weatherly</title>
+          <meta
+            name="description"
+            content="Learn more about Weatherly, a simple and fast weather forecast tool using the Open-Meteo API."
+          />
+        </div>
+        <CardDescription className="max-w-3xl mx-auto px-4 py-12 text-gray-800">
+          <h1 className="text-4xl font-bold mb-6">About Weatherly</h1>
+
+          <div className="mb-4">
+            <strong>Weatherly</strong> is a simple, fast tool for checking the{" "}
+            <strong>maximum and minimum temperatures</strong> in any city around
+            the world. Just search for a city and get instant results.
+          </div>
+
+          <p className="mb-4">
+            We use the{" "}
+            <a
+              href="https://open-meteo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Open-Meteo API
+            </a>{" "}
+            to deliver accurate, real-time weather data — no sign-ups, no
+            clutter.
+          </p>
+
+          <p className="mb-4">
+            Weatherly also features a{" "}
+            <strong>dedicated page for Australian cities</strong>, offering an
+            at-a-glance view of weather across the country.
+          </p>
+
+          <p className="mb-4">
+            This site was built as a personal project to combine clean design
+            with practical functionality. Thanks for stopping by!
+          </p>
+        </CardDescription>
+      </div>
+    </div>
   );
 }
