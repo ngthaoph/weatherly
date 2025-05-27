@@ -4,15 +4,18 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.9642 0 0);
-  --foreground: oklch(0.2393 0 0);
+  --background: #183b4e;
+  --foreground: #dda853;
+  --accent: #27548a;
+  --muted: #f5f5f5;
+  --font: #f5eedc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto-sans);
+  --font-mono: var(--font-roboto-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

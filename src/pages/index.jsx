@@ -20,7 +20,6 @@ const LocationMap = dynamic(() => import("../components/LocationMap"), {
 
 function HomePage() {
   const [currentBg, setCurrentBg] = useState(0);
-  console.log(currentBg);
 
   const handleSetBg = () => {
     setCurrentBg((prevIndex) => (prevIndex + 1) % backgroundImages.length);
@@ -66,13 +65,13 @@ function HomePage() {
       maxTemp: data.daily.temperature_2m_max[0],
     };
   };
-  //get the location coords
+  //1st QUERY: get the location coords
   const { data: coords, isSuccess: hasCoords } = useQuery({
     queryKey: ["coords", searchQuery],
     queryFn: fetchCoords,
     enabled: !!searchQuery,
   });
-
+  //2ND QUERY: fetch weather data only when we have the coords
   const { data: weatherData, isSuccess: hasWeather } = useQuery({
     queryKey: ["weather", coords?.latitude, coords?.longitude],
     queryFn: () => fetchWeather(coords.latitude, coords.longitude),
@@ -92,17 +91,18 @@ function HomePage() {
           />
         </div>
       </div>
-
-      <div className="flex justify-center">
-        <h1 className="w-1/2 text-center mt-4">
-          <LocationMap
-            lat={coords?.latitude}
-            lon={coords?.longitude}
-            weather={weatherData}
-            zoom={weatherData ? 10 : 2}
-          />
-        </h1>
-      </div>
+      {searchQuery && (
+        <div className="flex justify-center">
+          <h1 className="w-1/2 text-center mt-4">
+            <LocationMap
+              lat={coords?.latitude}
+              lon={coords?.longitude}
+              weather={weatherData}
+              zoom={weatherData ? 10 : 2}
+            />
+          </h1>
+        </div>
+      )}
     </div>
   );
 }

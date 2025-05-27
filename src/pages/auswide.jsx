@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "@/context/ThemeContext";
 
 import {
   tempColor,
@@ -26,6 +27,7 @@ const AustraliaMap = dynamic(() => import("../components/AustraliaMap"), {
 });
 
 function allCities(props) {
+  const { toggleTheme, isDarkMode } = useTheme();
   const { dataGeoCoding, dailyWeatherData } = props;
 
   const citiesWithWeather = dataGeoCoding
@@ -57,19 +59,16 @@ function allCities(props) {
     .filter(Boolean); // Remove null/invalid entries
   console.log(citiesWithWeather);
   return (
-    <div className="flex justify-center p-5">
-      <div className="flex flex-row justify-between items-center gap-x-4 w-full max-w-screen-xl">
+    <div className="flex flex-row justify-center p-5">
+      <div className="flex  justify-between items-center gap-x-4 w-full max-w-screen-xl">
         <div className="flex justify-center w-2/8 p-3">
-          <Table className="bg-white">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-1/2">City</TableHead>
-                <TableHead className="w-1/8">NOW</TableHead>
-                <TableHead className="w-1/8">MIN</TableHead>
-                <TableHead className="w-1/8">MAX</TableHead>
-              </TableRow>
-            </TableHeader>
-
+          <Table
+            className={`${
+              isDarkMode
+                ? "bg-[var(--background)] text-[var(--font)]"
+                : "bg-[var(--foreground)] text-[var(--background)]"
+            } font-bold`}
+          >
             <TableBody>
               {dataGeoCoding?.map((geoCity, index) => {
                 const cityName = geoCity.results[0].name;
@@ -100,16 +99,19 @@ function allCities(props) {
                           weather.daily.temperature_2m_min[0],
                           tempColorsChart
                         ),
+                        color: "black",
                       }}
+                      className="font-bold"
                     >
                       {weather.daily.temperature_2m_min[0]}
                     </TableCell>
                     <TableCell
                       style={{
                         backgroundColor: tempColor(
-                          weather.daily.temperature_2m_max[0],
+                          weather.daily.temperature_2m_min[0],
                           tempColorsChart
                         ),
+                        color: "black",
                       }}
                     >
                       {weather.daily.temperature_2m_max[0]}

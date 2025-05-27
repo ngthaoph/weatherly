@@ -1,18 +1,6 @@
-// pages/about.tsx
-
-import Head from "next/head";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 export default function AboutPage() {
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-row justify-center items-center min-h-screen">
       <div>
         <div>
           <title>About | Weatherly</title>
@@ -21,7 +9,7 @@ export default function AboutPage() {
             content="Learn more about Weatherly, a simple and fast weather forecast tool using the Open-Meteo API."
           />
         </div>
-        <CardDescription className="max-w-3xl mx-auto px-4 py-12 text-gray-800">
+        <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold mb-6">About Weatherly</h1>
 
           <div className="mb-4">
@@ -36,7 +24,6 @@ export default function AboutPage() {
               href="https://open-meteo.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 underline"
             >
               Open-Meteo API
             </a>{" "}
@@ -54,7 +41,7 @@ export default function AboutPage() {
             This site was built as a personal project to combine clean design
             with practical functionality. Thanks for stopping by!
           </p>
-        </CardDescription>
+        </div>
       </div>
     </div>
   );

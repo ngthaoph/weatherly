@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Layout from "../layout";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+
 import {
   useQuery,
   useMutation,
@@ -9,16 +10,20 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 // Create a client
 const queryClient = new QueryClient();
 function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Fragment>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Fragment>
+      <ThemeProvider>
+        <Fragment>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Fragment>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

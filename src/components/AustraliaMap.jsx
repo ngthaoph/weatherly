@@ -1,11 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import Image from "next/image";
-import L from "leaflet";
-// Manually import marker images
-import iconUrl from "leaflet/dist/images/marker-icon.png";
-import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
-import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 
 import { createMapIcon } from "@/services/helper";
 import Link from "next/link";
