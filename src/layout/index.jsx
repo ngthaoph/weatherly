@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { Victor_Mono } from "next/font/google";
 
 const victor = Victor_Mono({
-  subset: ["latin"],
+  subsets: ["latin"],
   weight: ["300", "400", "700"],
   style: ["normal", "italic"],
 });

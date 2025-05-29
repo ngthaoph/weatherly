@@ -13,9 +13,11 @@ export default function ContactPage() {
 
         <div className="flex flex-row items-center">
           <p>You can contact me directly via my socials: </p>
-          <Link href="https://www.linkedin.com/in/thaodev">
-            <FaLinkedin />
-          </Link>
+          <div>
+            <Link href="https://www.linkedin.com/in/thaodev">
+              <FaLinkedin />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
