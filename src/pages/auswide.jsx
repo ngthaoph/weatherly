@@ -1,33 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useTheme } from "@/context/ThemeContext";
-
-import {
-  tempColor,
-  getWeatherIcon,
-  capitalise,
-  getWeatherDescription,
-} from "@/services/helper";
-import { cities, tempColorsChart, weatherCodeData } from "@/services/db";
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { getWeatherIcon } from "@/services/helper";
+import { cities } from "@/services/db";
 
 import dynamic from "next/dynamic";
+import TemperatureTable from "@/components/Table";
 
 const AustraliaMap = dynamic(() => import("../components/AustraliaMap"), {
   ssr: false,
 });
 
 function allCities(props) {
-  const { toggleTheme, isDarkMode } = useTheme();
   const { dataGeoCoding, dailyWeatherData } = props;
 
   const citiesWithWeather = dataGeoCoding
@@ -57,70 +38,15 @@ function allCities(props) {
       };
     })
     .filter(Boolean); // Remove null/invalid entries
-  console.log(citiesWithWeather);
+
   return (
     <div className="flex flex-row justify-center p-5">
       <div className="flex  justify-between items-center gap-x-4 w-full max-w-screen-xl">
         <div className="flex justify-center w-2/8 p-3">
-          <Table
-            className={`${
-              isDarkMode
-                ? "bg-[var(--background)] text-[var(--font)]"
-                : "bg-[var(--foreground)] text-[var(--background)]"
-            } font-bold`}
-          >
-            <TableBody>
-              {dataGeoCoding?.map((geoCity, index) => {
-                const cityName = geoCity.results[0].name;
-
-                const weather = dailyWeatherData[index];
-
-                const code = weather.daily?.weather_code[0]; //correct
-
-                const icon = getWeatherIcon(code);
-
-                return (
-                  <TableRow key={geoCity.results[0].id || index}>
-                    <TableCell className="flex flex-row items-center">
-                      <Image
-                        src={icon?.icon || "/icons/default.png"}
-                        width={50}
-                        height={50}
-                        alt="code"
-                      />
-                      <Link href={`/${cityName.toLowerCase()}`}>
-                        {capitalise(cityName)}
-                      </Link>
-                    </TableCell>
-                    <TableCell>{weather.current.temperature_2m}</TableCell>
-                    <TableCell
-                      style={{
-                        backgroundColor: tempColor(
-                          weather.daily.temperature_2m_min[0],
-                          tempColorsChart
-                        ),
-                        color: "black",
-                      }}
-                      className="font-bold"
-                    >
-                      {weather.daily.temperature_2m_min[0]}
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        backgroundColor: tempColor(
-                          weather.daily.temperature_2m_min[0],
-                          tempColorsChart
-                        ),
-                        color: "black",
-                      }}
-                    >
-                      {weather.daily.temperature_2m_max[0]}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <TemperatureTable
+            dataGeoCoding={dataGeoCoding}
+            dailyWeatherData={dailyWeatherData}
+          />
         </div>
         <div className="flex justify-center h-full w-6/8">
           <AustraliaMap citiesWithWeather={citiesWithWeather} />
@@ -129,50 +55,7 @@ function allCities(props) {
     </div>
   );
 }
-// export const getStaticProps = async () => {
-//   const responseGeoCoding = await Promise.all(
-//     cities.map((city) =>
-//       fetch(
-//         `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
-//       )
-//     )
-//   );
 
-//   const dataGeoCoding = await Promise.all(
-//     responseGeoCoding.map((res) => res.json())
-//   );
-//   if (!dataGeoCoding) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   // Fetch daily weather only for valid entries
-//   const responseDailyWeather = await Promise.all(
-//     dataGeoCoding.map((geo) =>
-//       fetch(
-//         `https://api.open-meteo.com/v1/forecast?latitude=${geo.results[0].latitude}&longitude=${geo.results[0].longitude}&daily=weather_code,uv_index_max,temperature_2m_max,temperature_2m_min&current=temperature_2m`
-//       )
-//     )
-//   );
-
-//   const dailyWeatherData = await Promise.all(
-//     responseDailyWeather.map((res) => res.json())
-//   );
-//   if (!dailyWeatherData) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: {
-//       dataGeoCoding,
-//       dailyWeatherData,
-//     },
-//     revalidate: 20,
-//   };
-// };
 export const getServerSideProps = async () => {
   try {
     const responseGeoCoding = await Promise.all(
