@@ -19,6 +19,12 @@ function App({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <Fragment>
+          <Head>
+            <meta
+              name="google-site-verification"
+              content="IYJ89LdoROJCl6W1XtRXDWvZG65k0IC2RFA18frH53w"
+            />
+          </Head>
           <Layout>
             <Component {...pageProps} />
           </Layout>
