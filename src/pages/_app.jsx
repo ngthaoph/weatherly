@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Layout from "../layout";
 import { Fragment, useState } from "react";
+import Head from "next/head";
 
 import {
   useQuery,
