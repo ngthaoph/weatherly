@@ -29,12 +29,7 @@ function TemperatureTable({ dataGeoCoding, dailyWeatherData }) {
           return (
             <TableRow key={geoCity.results[0].id || index}>
               <TableCell className="flex flex-row items-center">
-                <Image
-                  src={icon?.icon || "/icons/default.png"}
-                  width={50}
-                  height={50}
-                  alt="code"
-                />
+                <Image src={icon?.icon} width={50} height={50} alt="code" />
                 <Link href={`/${cityName.toLowerCase()}`}>
                   {capitalise(cityName)}
                 </Link>

@@ -25,8 +25,8 @@ export default function CityPage({ cityName, weatherData }) {
   const icon = getWeatherIcon(Number(futureStats[4]?.value));
 
   return (
-    <div className="flex justify-center">
-      <div className="flex bg-white rounded-[5px] shadow-[0px_2px_7px_0px_rgba(0,0,0,0.1)] p-[15px] min-h-[527px] w-3/5">
+    <div className="flex flex-row justify-center items-center min-h-screen">
+      <div className="flex bg-white rounded-[5px] shadow-[0px_2px_7px_0px_rgba(0,0,0,0.1)] p-[15px] min-h-[527px] w-3/5 text-black">
         <div className="flex flex-row justify-center w-full">
           {/**FIRST CARD */}
 

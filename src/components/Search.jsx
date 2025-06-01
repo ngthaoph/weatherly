@@ -7,7 +7,7 @@ function Search({ handleSearch, location, updateLocation }) {
         <label></label>
         <Input
           id="weather-search"
-          className="bg-white/95 text-black rounded-[4px]"
+          className="bg-[var(--muted)] text-black rounded-[4px]"
           type="text"
           placeholder={`🔍  Search your location`}
           value={location}
