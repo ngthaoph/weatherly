@@ -81,7 +81,7 @@ function HomePage() {
   return (
     <div className="h-screen">
       <div className="flex w-screen h-4/10 relative">
-        <Image src={backgroundImages[currentBg]} alt="bg" fill />
+        <Image src={backgroundImages[currentBg]} alt="bg" fill priority />
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl">
           <Search
             handleSearch={handleSearch}

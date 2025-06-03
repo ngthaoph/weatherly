@@ -41,7 +41,7 @@ function allCities(props) {
 
   return (
     <div className="flex flex-row justify-center p-5">
-      <div className="flex  justify-between items-center gap-x-4 w-full max-w-screen-xl">
+      <div className="flex justify-between items-center gap-x-4 w-full max-w-screen-xl">
         <div className="flex justify-center w-2/8 p-3">
           <TemperatureTable
             dataGeoCoding={dataGeoCoding}
