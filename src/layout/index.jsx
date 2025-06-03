@@ -20,8 +20,8 @@ function Layout(props) {
         victor.className,
         "relative flex min-h-screen min-w-screen flex-col",
         {
-          "bg-[var(--dark)] text-[var(--light)]": !isDarkMode,
-          "bg-[var(--light)] text-[var(--dark)]": isDarkMode,
+          "bg-[var(--background)] text-[var(--foreground)]": !isDarkMode,
+          "bg-[var(--foreground)] text-[var(--background)]": isDarkMode,
         }
       )}
     >
@@ -30,8 +30,8 @@ function Layout(props) {
       {/* APP BODY */}
       <div
         className={clsx("flex-1 overflow-y-auto", {
-          "bg-[var(--dark)] text-[var(--light)]": !isDarkMode,
-          "bg-[var(--light)] text-[var(--dark)]": isDarkMode,
+          "bg-[var(--dark)] text-[var(--light]": !isDarkMode,
+          "bg-[var(--light)] text-[var(--dark]": isDarkMode,
         })}
       >
         {props.children}
