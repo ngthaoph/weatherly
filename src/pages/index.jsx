@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input";
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Head from "next/head";
 
 import Search from "@/components/Search";
+
 import {
   useQuery,
   useMutation,
@@ -80,6 +82,15 @@ function HomePage() {
 
   return (
     <div className="h-screen">
+      <Head>
+        <link
+          rel="preload"
+          as="image"
+          href={backgroundImages[currentBg]}
+          imagesrcset={`${backgroundImages[currentBg]} 1x`}
+          imageSizes="100vw"
+        />
+      </Head>
       <div className="flex w-screen h-4/10 relative">
         <Image src={backgroundImages[currentBg]} alt="bg" fill priority />
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl">
