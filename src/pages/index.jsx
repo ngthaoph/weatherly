@@ -82,7 +82,7 @@ function HomePage() {
 
   return (
     <div className="h-screen">
-      <div className="flex w-screen h-4/10 relative">
+      <div className="relative w-screen aspect-[3.2]">
         <Image
           src={backgroundImages[currentBg]}
           alt="bg"
