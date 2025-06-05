@@ -82,17 +82,13 @@ function HomePage() {
 
   return (
     <div className="h-screen">
-      <Head>
-        <link
-          rel="preload"
-          as="image"
-          href={backgroundImages[0]}
-          imagesrcset={`${backgroundImages[0]} 1x`}
-          imageSizes="100vw"
-        />
-      </Head>
       <div className="flex w-screen h-4/10 relative">
-        <Image src={backgroundImages[currentBg]} alt="bg" fill priority />
+        <Image
+          src={backgroundImages[currentBg]}
+          alt="bg"
+          width={1440}
+          height={450}
+        />
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl">
           <Search
             handleSearch={handleSearch}
