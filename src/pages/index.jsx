@@ -86,8 +86,8 @@ function HomePage() {
         <link
           rel="preload"
           as="image"
-          href={backgroundImages[currentBg]}
-          imagesrcset={`${backgroundImages[currentBg]} 1x`}
+          href={backgroundImages[0]}
+          imagesrcset={`${backgroundImages[0]} 1x`}
           imageSizes="100vw"
         />
       </Head>
